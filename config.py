@@ -56,7 +56,17 @@ Free Look : 50
 
 General : 195
 Red Dot : 185
-2X Scope : 175
+2X Scope : 175    "hud": {
+        "name": "🎯 HUD Pack",
+        "price": 40,
+        "text": """🎯 HUD Pack
+
+4 Finger HUD
+Fast Drag
+Headshot Layout
+"""
+    }
+}
 4X Scope : 165
 Sniper : 10
 Free Look : 50
