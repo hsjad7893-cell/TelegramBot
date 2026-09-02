@@ -1,78 +1,37 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
+
 def join_keyboard():
-    keyboard = [
-        [
-            InlineKeyboardButton(
-                "📢 عضویت در کانال",
-                url="https://t.me/GUILD_ALCATRAZ"
-            )
-        ],
-        [
-            InlineKeyboardButton(
-                "✅ عضو شدم",
-                callback_data="check_join"
-            )
-        ]
-    ]
-    return InlineKeyboardMarkup(keyboard)
+    return InlineKeyboardMarkup([
+        [InlineKeyboardButton("📢 عضویت در کانال", url="https://t.me/GUILD_ALCATRAZ")],
+        [InlineKeyboardButton("✅ عضو شدم", callback_data="check_join")]
+    ])
 
 
 def main_menu():
-    keyboard = [
+    return InlineKeyboardMarkup([
         [
-            InlineKeyboardButton(
-                "🪙 موجودی سکه",
-                callback_data="coins"
-            )
+            InlineKeyboardButton("🪙 موجودی", callback_data="coins"),
+            InlineKeyboardButton("🎁 جایزه روزانه", callback_data="daily")
         ],
         [
-            InlineKeyboardButton(
-                "🎮 خرید سنسیویتی",
-                callback_data="shop"
-            )
+            InlineKeyboardButton("🛒 فروشگاه", callback_data="shop")
         ],
         [
-            InlineKeyboardButton(
-                "👥 دعوت دوستان",
-                callback_data="invite"
-            )
+            InlineKeyboardButton("👤 پروفایل", callback_data="profile"),
+            InlineKeyboardButton("👥 دعوت دوستان", callback_data="invite")
+        ],
+        [
+            InlineKeyboardButton("ℹ️ راهنما", callback_data="help")
         ]
-    ]
-    return InlineKeyboardMarkup(keyboard)
+    ])
 
 
 def shop_menu():
-    keyboard = [
-        [
-            InlineKeyboardButton(
-                "🔥 هدشات (20🪙)",
-                callback_data="buy_headshot"
-            )
-        ],
-        [
-            InlineKeyboardButton(
-                "📱 آیفون (30🪙)",
-                callback_data="buy_iphone"
-            )
-        ],
-        [
-            InlineKeyboardButton(
-                "🤖 سامسونگ (30🪙)",
-                callback_data="buy_samsung"
-            )
-        ],
-        [
-            InlineKeyboardButton(
-                "🎯 HUD (40🪙)",
-                callback_data="buy_hud"
-            )
-        ],
-        [
-            InlineKeyboardButton(
-                "🔙 بازگشت",
-                callback_data="menu"
-            )
-        ]
-    ]
-    return InlineKeyboardMarkup(keyboard)
+    return InlineKeyboardMarkup([
+        [InlineKeyboardButton("🔥 Headshot Pro - 20🪙", callback_data="buy_headshot")],
+        [InlineKeyboardButton("🤖 Android Smooth - 25🪙", callback_data="buy_android")],
+        [InlineKeyboardButton("🍎 iPhone Zero Recoil - 30🪙", callback_data="buy_iphone")],
+        [InlineKeyboardButton("🎯 HUD Pack - 40🪙", callback_data="buy_hud")],
+        [InlineKeyboardButton("🔙 بازگشت", callback_data="menu")]
+    ])
