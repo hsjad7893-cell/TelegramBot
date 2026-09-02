@@ -35,3 +35,20 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "✅ عضویت شما تایید شد.\n"
         "به ربات خوش آمدید."
     )
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+
+async def check_join(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+
+    user = query.from_user
+
+    if await check_member(context.bot, user.id):
+        await query.edit_message_text(
+            f"🎉 سلام {user.first_name}\n\nعضویت شما تایید شد."
+        )
+    else:
+        await query.answer(
+            "❌ هنوز عضو کانال نیستی.",
+            show_alert=True
+        )
