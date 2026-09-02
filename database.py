@@ -84,4 +84,17 @@ async def get_daily(user_id):
             (user_id,),
         )
         row = await cur.fetchone()
+        return row[0] if row else ""
+
+
+async def users_count():
+    async with aiosqlite.connect(DB_NAME) as db:
+        cur = await db.execute("SELECT COUNT(*) FROM users")
+        row = await cur.fetchone()
         return row[0]
+
+
+async def get_all_users():
+    async with aiosqlite.connect(DB_NAME) as db:
+        cur = await db.execute("SELECT user_id FROM users")
+        return await cur.fetchall()
