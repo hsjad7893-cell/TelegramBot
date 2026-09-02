@@ -1,5 +1,10 @@
 from telegram import Update
 from telegram.ext import ContextTypes
+
+from keyboards import main_menu, shop_menu
+from database import get_coins
+from telegram import Update
+from telegram.ext import ContextTypes
 from telegram.constants import ChatMemberStatus
 
 from config import CHANNEL
@@ -49,3 +54,63 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 """,
         reply_markup=main_menu()
     )
+async def buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+    query = update.callback_query
+    await query.answer()
+
+    user = query.from_user.id
+
+    if query.data == "check_join":
+
+        if await is_joined(context.bot, user):
+
+            await query.message.edit_text(
+                "✅ عضویت شما تایید شد.",
+                reply_markup=main_menu()
+            )
+
+        else:
+
+            await query.answer(
+                "❌ هنوز عضو کانال نیستی.",
+                show_alert=True
+            )
+
+    elif query.data == "menu":
+
+        await query.message.edit_text(
+            "🏠 منوی اصلی",
+            reply_markup=main_menu()
+        )
+
+    elif query.data == "coins":
+
+        coins = await get_coins(user)
+
+        await query.answer(
+            f"🪙 موجودی شما : {coins}",
+            show_alert=True
+        )
+
+    elif query.data == "profile":
+
+        coins = await get_coins(user)
+
+        await query.message.edit_text(
+            f"""
+👤 پروفایل
+
+🆔 {user}
+
+🪙 سکه : {coins}
+""",
+            reply_markup=main_menu()
+        )
+
+    elif query.data == "shop":
+
+        await query.message.edit_text(
+            "🛒 فروشگاه سنسیویتی",
+            reply_markup=shop_menu()
+        )
