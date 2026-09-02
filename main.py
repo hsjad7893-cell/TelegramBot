@@ -19,3 +19,8 @@ app.add_handler(CommandHandler("start", start))
 print("🤖 Bot Started...")
 
 app.run_polling()
+from telegram.ext import CallbackQueryHandler
+app.add_handler(CommandHandler("start", start))
+from handlers import check_join
+
+app.add_handler(CallbackQueryHandler(check_join, pattern="check_join"))
