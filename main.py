@@ -12,7 +12,6 @@ from database import create_db
 from handlers import start, check_join
 from admin import admin_panel, stats, broadcast, handle_broadcast
 
-
 async def post_init(app: Application):
     await create_db()
 
