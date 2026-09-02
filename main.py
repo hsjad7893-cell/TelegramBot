@@ -27,3 +27,9 @@ app.add_handler(CallbackQueryHandler(check_join, pattern="check_join"))
 from admin import admin_panel, stats
 app.add_handler(CommandHandler("admin", admin_panel))
 app.add_handler(CommandHandler("stats", stats))
+from telegram.ext import CallbackQueryHandler
+from handlers import check_join
+from admin import admin_panel, stats
+app.add_handler(CommandHandler("admin", admin_panel))
+app.add_handler(CommandHandler("stats", stats))
+app.add_handler(CallbackQueryHandler(check_join, pattern="check_join"))
