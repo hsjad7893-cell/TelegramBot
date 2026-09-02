@@ -24,3 +24,6 @@ app.add_handler(CommandHandler("start", start))
 from handlers import check_join
 
 app.add_handler(CallbackQueryHandler(check_join, pattern="check_join"))
+from admin import admin_panel, stats
+app.add_handler(CommandHandler("admin", admin_panel))
+app.add_handler(CommandHandler("stats", stats))
