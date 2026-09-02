@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from telegram import Update
 from telegram.ext import ContextTypes
 
@@ -7,23 +5,21 @@ from config import (
     CHANNEL,
     DAILY_REWARD,
     INVITE_REWARD,
-    SHOP,
 )
-
 from keyboards import (
     join_keyboard,
     main_menu,
     shop_menu,
 )
-
 from database import (
     add_user,
     get_coins,
     add_coins,
-    remove_coins,
     get_daily,
     set_daily,
 )
+
+from datetime import date
 
 
 async def is_joined(bot, user_id):
@@ -34,12 +30,11 @@ async def is_joined(bot, user_id):
             "administrator",
             "creator",
         ]
-    except:
+    except Exception:
         return False
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
     user = update.effective_user
 
     await add_user(
@@ -49,27 +44,18 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     if not await is_joined(context.bot, user.id):
-
         await update.message.reply_text(
-            "❌ ابتدا در کانال عضو شو.",
+            "👋 برای استفاده از ربات ابتدا عضو کانال شو.",
             reply_markup=join_keyboard(),
         )
         return
 
     await update.message.reply_text(
-        f"""🎮 سلام {user.first_name}
-
-به ربات سنسیویتی خوش اومدی.
-از منوی زیر استفاده کن 👇
-""",
+        f"سلام {user.first_name} 🌸\n\nبه ربات سنسیویتی خوش اومدی.",
         reply_markup=main_menu(),
     )
-
-
-async def buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
+    async def buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
-
     await query.answer()
 
     user = query.from_user.id
@@ -77,89 +63,76 @@ async def buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if query.data == "check_join":
 
         if await is_joined(context.bot, user):
-
             await query.message.edit_text(
-                "✅ عضویت تایید شد.",
+                "✅ عضویت شما تایید شد.",
                 reply_markup=main_menu(),
             )
-
         else:
-
             await query.answer(
                 "❌ هنوز عضو کانال نیستی.",
                 show_alert=True,
             )
 
     elif query.data == "menu":
-
         await query.message.edit_text(
             "🏠 منوی اصلی",
             reply_markup=main_menu(),
         )
 
-    elif query.data == " 
-        elif query.data == "invite":
+    elif query.data == "coins":
+        coins = await get_coins(user)
 
+        await query.answer(
+            f"🪙 موجودی شما: {coins}",
+            show_alert=True,
+        )
+
+    elif query.data == "profile":
+        coins = await get_coins(user)
+
+        await query.message.edit_text(
+            f"""👤 پروفایل
+
+🆔 شناسه: {user}
+🪙 سکه: {coins}
+""",
+            reply_markup=main_menu(),
+        )
+
+    elif query.data == "shop":
+        await query.message.edit_text(
+            "🛒 فروشگاه سنسیویتی",
+            reply_markup=shop_menu(),
+        )
+
+    elif query.data == "invite":
         link = f"https://t.me/{context.bot.username}?start={user}"
 
         await query.message.edit_text(
             f"""👥 دعوت دوستان
 
-لینک دعوت اختصاصی شما:
+لینک اختصاصی شما:
 
 {link}
 
-🎁 به ازای هر نفر:
+🎁 به ازای هر دعوت موفق:
 +{INVITE_REWARD} سکه
 """,
             reply_markup=main_menu(),
         )
 
-    elif query.data == "help":
+    elif query.data == "daily":
+        today = str(date.today())
+        last = await get_daily(user)
 
-        await query.message.edit_text(
-            """ℹ️ راهنما
-
-🪙 با دعوت دوستان سکه بگیر.
-🎁 هر روز جایزه دریافت کن.
-🛒 با سکه سنسیویتی بخر.
-""",
-            reply_markup=main_menu(),
-        )
-
-    elif query.data.startswith("buy_"):
-
-        item = query.data.replace("buy_", "")
-
-        product = SHOP[item]
-
-        coins = await get_coins(user)
-
-        if coins < product["price"]:
-
+        if last == today:
             await query.answer(
-                "❌ سکه کافی نداری.",
+                "⏳ جایزه امروز را قبلاً دریافت کرده‌ای.",
                 show_alert=True,
             )
+        else:
+            await add_coins(user, DAILY_REWARD)
+            await set_daily(user, today)
 
-            return
-
-        await remove_coins(
-            user,
-            product["price"],
-        )
-
-        coins = await get_coins(user)
-
-        await query.message.edit_text(
-            f"""✅ خرید انجام شد.
-
-📦 {product["name"]}
-
-{product["text"]}
-
-🪙 موجودی باقی‌مانده:
-{coins}
-""",
-            reply_markup=main_menu(),
-        )
+            await query.answer(
+                f"🎉 {DAILY_REWARD} سکه دریافت کردی
