@@ -3,18 +3,23 @@ import os
 
 load_dotenv()
 
+# توکن ربات از فایل .env خوانده می‌شود
 TOKEN = os.getenv("TOKEN")
 
+# آیدی یا یوزرنیم کانال
 CHANNEL = "@GUILD_ALCATRAZ"
 
-ADMINS = [8999545910]
+# آیدی عددی ادمین‌ها
+ADMINS = [
+    8999545910,
+]
 
 # پاداش‌ها
 START_COINS = 50
 DAILY_REWARD = 10
 INVITE_REWARD = 15
 
-# قیمت محصولات
+# محصولات فروشگاه
 SHOP = {
     "headshot": {
         "name": "🔥 Headshot Pro",
@@ -37,33 +42,27 @@ Free Look : 50
 
 General : 190
 Red Dot : 175
-2X : 165
-4X : 155
-AWM : 10
+2X Scope : 165
+4X Scope : 155
+Sniper : 15
+Free Look : 50
 """
     },
 
     "iphone": {
         "name": "🍎 iPhone Zero Recoil",
         "price": 30,
-        "text": """🍎 iPhone
+        "text": """🍎 iPhone Zero Recoil
 
 General : 195
 Red Dot : 185
-2X : 175
-4X : 165
-Sniper : 0
+2X Scope : 175
+4X Scope : 165
+Sniper : 10
+Free Look : 50
 """
     },
 
     "hud": {
         "name": "🎯 HUD Pack",
-        "price": 40,
-        "text": """🎯 HUD حرفه‌ای
-
-4 Finger HUD
-Drag Headshot
-Fast Scope
-"""
-    }
-}
+        "price
