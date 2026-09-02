@@ -36,3 +36,24 @@ async def get_all_users():
     async with aiosqlite.connect(DB_NAME) as db:
         cursor = await db.execute("SELECT user_id FROM users")
         return await cursor.fetchall()
+import aiosqlite
+
+DB = "bot.db"
+
+async def add_coins(user_id, amount):
+    async with aiosqlite.connect(DB) as db:
+        await db.execute(
+            "UPDATE users SET coins = coins + ? WHERE user_id=?",
+            (amount, user_id),
+        )
+        await db.commit()
+
+
+async def get_coins(user_id):
+    async with aiosqlite.connect(DB) as db:
+        cur = await db.execute(
+            "SELECT coins FROM users WHERE user_id=?",
+            (user_id,),
+        )
+        row = await cur.fetchone()
+        return row[0] if row else 0
