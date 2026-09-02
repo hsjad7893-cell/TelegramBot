@@ -52,5 +52,3 @@ async def check_join(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "❌ هنوز عضو کانال نیستی.",
             show_alert=True
         )
-app.add_handler(CommandHandler("broadcast", broadcast))
-app.add_handler(MessageHandler(filters.ALL, handle_broadcast))
