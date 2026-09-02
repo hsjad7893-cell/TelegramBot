@@ -92,5 +92,3 @@ async def users_count():
         row = await cur.fetchone()
         return row[0]
 
-
-async
