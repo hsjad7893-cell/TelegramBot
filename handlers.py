@@ -136,3 +136,55 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
             await query.answer(
                 f"🎉 {DAILY_REWARD} سکه دریافت کردی
+    elif query.data == "buy_headshot":
+        await query.message.edit_text(
+            """🔥 Headshot Pro
+
+General : 200
+Red Dot : 180
+2X Scope : 170
+4X Scope : 160
+Sniper : 20
+Free Look : 50
+""",
+            reply_markup=shop_menu(),
+        )
+
+    elif query.data == "buy_android":
+        await query.message.edit_text(
+            """🤖 Android Smooth
+
+General : 190
+Red Dot : 175
+2X Scope : 165
+4X Scope : 155
+Sniper : 15
+Free Look : 50
+""",
+            reply_markup=shop_menu(),
+        )
+
+    elif query.data == "buy_iphone":
+        await query.message.edit_text(
+            """🍎 iPhone Zero Recoil
+
+General : 195
+Red Dot : 185
+2X Scope : 175
+4X Scope : 165
+Sniper : 10
+Free Look : 50
+""",
+            reply_markup=shop_menu(),
+        )
+
+    elif query.data == "buy_hud":
+        await query.message.edit_text(
+            """🎯 HUD Pack
+
+4 Finger HUD
+Fast Drag
+Headshot Layout
+""",
+            reply_markup=shop_menu(),
+        )
