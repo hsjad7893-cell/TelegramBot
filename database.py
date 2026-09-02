@@ -92,3 +92,10 @@ async def users_count():
         row = await cur.fetchone()
         return row[0]
 
+async def remove_coins(user_id, amount):
+    async with aiosqlite.connect(DB_NAME) as db:
+        await db.execute(
+            "UPDATE users SET coins = coins - ? WHERE user_id = ?",
+            (amount, user_id),
+        )
+        await db.commit()
