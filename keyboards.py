@@ -1,12 +1,11 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-from config import CHANNEL
 
 def join_keyboard():
     keyboard = [
         [
             InlineKeyboardButton(
                 "📢 عضویت در کانال",
-                url=f"https://t.me/{CHANNEL.replace('@','')}"
+                url="https://t.me/GUILD_ALCATRAZ"
             )
         ],
         [
@@ -18,13 +17,62 @@ def join_keyboard():
     ]
     return InlineKeyboardMarkup(keyboard)
 
-def admin_keyboard():
+
+def main_menu():
     keyboard = [
         [
-            InlineKeyboardButton("📊 آمار کاربران", callback_data="stats")
+            InlineKeyboardButton(
+                "🪙 موجودی سکه",
+                callback_data="coins"
+            )
         ],
         [
-            InlineKeyboardButton("📢 ارسال همگانی", callback_data="broadcast")
+            InlineKeyboardButton(
+                "🎮 خرید سنسیویتی",
+                callback_data="shop"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "👥 دعوت دوستان",
+                callback_data="invite"
+            )
+        ]
+    ]
+    return InlineKeyboardMarkup(keyboard)
+
+
+def shop_menu():
+    keyboard = [
+        [
+            InlineKeyboardButton(
+                "🔥 هدشات (20🪙)",
+                callback_data="buy_headshot"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "📱 آیفون (30🪙)",
+                callback_data="buy_iphone"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "🤖 سامسونگ (30🪙)",
+                callback_data="buy_samsung"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "🎯 HUD (40🪙)",
+                callback_data="buy_hud"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                "🔙 بازگشت",
+                callback_data="menu"
+            )
         ]
     ]
     return InlineKeyboardMarkup(keyboard)
