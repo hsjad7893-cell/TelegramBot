@@ -3,23 +3,18 @@ import os
 
 load_dotenv()
 
-# توکن ربات از فایل .env خوانده می‌شود
 TOKEN = os.getenv("TOKEN")
 
-# آیدی یا یوزرنیم کانال
 CHANNEL = "@GUILD_ALCATRAZ"
 
-# آیدی عددی ادمین‌ها
 ADMINS = [
     8999545910,
 ]
 
-# پاداش‌ها
 START_COINS = 50
 DAILY_REWARD = 10
 INVITE_REWARD = 15
 
-# محصولات فروشگاه
 SHOP = {
     "headshot": {
         "name": "🔥 Headshot Pro",
@@ -56,7 +51,14 @@ Free Look : 50
 
 General : 195
 Red Dot : 185
-2X Scope : 175    "hud": {
+2X Scope : 175
+4X Scope : 165
+Sniper : 10
+Free Look : 50
+"""
+    },
+
+    "hud": {
         "name": "🎯 HUD Pack",
         "price": 40,
         "text": """🎯 HUD Pack
@@ -67,12 +69,3 @@ Headshot Layout
 """
     }
 }
-4X Scope : 165
-Sniper : 10
-Free Look : 50
-"""
-    },
-
-    "hud": {
-        "name": "🎯 HUD Pack",
-        "price
