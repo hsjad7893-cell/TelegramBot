@@ -125,3 +125,19 @@ async def get_all_users():
     async with aiosqlite.connect(DB_NAME) as db:
         cur = await db.execute("SELECT user_id FROM users")
         return await cur.fetchall()
+async def add_coins(user_id, amount):
+    async with aiosqlite.connect(DB_NAME) as db:
+        await db.execute(
+            "UPDATE users SET coins = coins + ? WHERE user_id = ?",
+            (amount, user_id),
+        )
+        await db.commit()
+
+
+async def remove_coins(user_id, amount):
+    async with aiosqlite.connect(DB_NAME) as db:
+        await db.execute(
+            "UPDATE users SET coins = coins - ? WHERE user_id = ?",
+            (amount, user_id),
+        )
+        await db.commit()
