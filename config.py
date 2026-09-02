@@ -1,4 +1,9 @@
-TOKEN = "8893630892:AAGWYF1SEkRfDj8ToB5YoTNMvQH58UPaHwU"
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+TOKEN = os.getenv("TOKEN")
 
 CHANNEL = "@GUILD_ALCATRAZ"
 
